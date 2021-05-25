@@ -4,7 +4,7 @@ import ssg.parsers
 
 
 def main(source = "content", dest = "dist"):
-    config = {"source": source, "dest": dest, "parsers":[ssg.parsers.ResourceParsers()] }
+    config = {"source": source, "dest": dest, "parsers":[ssg.parsers.ResourceParser()] }
     siteobj = Site(**config).build()
 
 typer.run(main)
