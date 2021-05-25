@@ -28,4 +28,4 @@ class Parser:
         extensions = [".jpg", ".png", ".gif", ".css", ".html"]
 
         def parse(self, path: Path, source: Path, dest: Path):
-            self.copy(self, path, source, dest)
+            self.copy(path, source, dest)
