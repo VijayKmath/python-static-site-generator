@@ -6,7 +6,7 @@ class Site:
     def __init__(self, source, dest, parsers=None):
         self.source = Path(source)
         self.dest = Path(dest)
-        self.parsers = []
+        self.parsers = parsers or []
 
     def create_dir(self, path):
         directory = self.dest / path.relative_to(self.source)
@@ -15,10 +15,10 @@ class Site:
     def build(self):
         self.dest.mkdir(parents=True, exist_ok= True)
 
-        for path in source.rglob("*"):
-            if Path.is_dir(path):
+        for path in self.source.rglob("*"):
+            if path.is_dir():
                 self.create_dir(path)
-            elif Path.is_file(path):
+            elif path.is_file():
                 self.run_parser(path)    
     
     def load_parser(self, extension):
@@ -28,8 +28,8 @@ class Site:
     
     def run_parser(self, path):
         parser = self.load_parser(Path.suffix(path))
-        if not parser == None:
-            parser.parse(path, source, dest)
+        if parser is not None:
+            parser.parse(path, self.source, self.dest)
         else:
             print("Not implemented.")
         
